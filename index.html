@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Flappy Bird 2.5D Redux</title>
+    <!-- Import Three.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Link to our Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Three.js will inject canvas here -->
+        <div id="gameContainer"></div>
+
+        <!-- UI Elements -->
+        <div class="ui-layer">
+            <div id="scoreDisplay">0</div>
+            <div id="instructions">
+                <span id="pipeGapDisplay">Gate Size: 155</span><br>
+                <span id="difficultyDisplayElement">Diff: Normal (N)</span><br>
+                <span id="autobotStatusDisplay">Autobot: OFF (B)</span><br>
+                <span id="autobotDemoStatusDisplay" class="highlight"></span>
+            </div>
+        </div>
+
+        <!-- Overlays -->
+        <div id="startMessage" class="message-overlay">
+            <strong>FLAPPY 2.5D</strong><br><br>
+            Press UP, SPACE<br>or CLICK to Start
+        </div>
+        <div id="pausedMessage" class="message-overlay" style="display: none;">PAUSED</div>
+        <div id="gameOverMessage" class="message-overlay" style="display: none;">
+            <strong>GAME OVER</strong><br><br>
+            Score: <span id="finalScore">0</span><br><br>
+            Press UP/Space to Restart
+        </div>
+
+        <!-- Controls -->
+        <div id="onscreenControls">
+            <button id="flapBtn">FLAP</button>
+            <button id="pauseBtn">PAUSE (P)</button>
+            <button id="difficultyBtn">MODE (N)</button>
+        </div>
+    </div>
+
+    <!-- Link to our Game Script -->
+    <script src="script.js"></script>
+</body>
+</html>
