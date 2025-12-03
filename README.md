@@ -15,30 +15,30 @@ keeping gameplay logic classic, simple, and fast.
 
 ### ⭐ 2.5D Rendering (Three.js)
 
--   Fully 3D bird, pipe models, lighting, and shadows\
--   Perspective camera tuned to mimic the original 2D gameplay feel\
+-   Fully 3D bird, pipe models, lighting, and shadows
+-   Perspective camera tuned to mimic the original 2D gameplay feel
 -   Smooth transitions and animation-based bird rotation
 
 ### ⭐ Game Mechanics
 
--   Classic Flappy Bird movement, pipe spawning, and scoring\
+-   Classic Flappy Bird movement, pipe spawning, and scoring
 -   Three difficulty modes:
     -   **Normal**
     -   **Hard**
-    -   **Extra Hard**\
--   Adjustable pipe gap displayed in real time\
+    -   **Extra Hard**
+-   Adjustable pipe gap displayed in real time
 -   On-screen mobile controls
 
 ### ⭐ Autobot System
 
--   Optional AI "Autobot" that plays automatically\
--   Idle countdown auto-start demo mode\
+-   Optional AI "Autobot" that plays automatically
+-   Idle countdown auto-start demo mode
 -   Demo status UI indicator
 
 ### ⭐ UX & Visuals
 
--   Clean UI overlays for score, difficulty, autopilot, pipe gap\
--   Start / Pause / Game Over overlays\
+-   Clean UI overlays for score, difficulty, autopilot, pipe gap
+-   Start / Pause / Game Over overlays
 -   Mobile-friendly layout with touchscreen flap + pause buttons
 
 ------------------------------------------------------------------------
@@ -60,7 +60,7 @@ keeping gameplay logic classic, simple, and fast.
     -   `index.html`
     -   `style.css`
     -   `script.js`
-2.  Simply open **index.html** in any modern browser.\
+2.  Simply open **index.html** in any modern browser.
     No build tools are required.
 
 ------------------------------------------------------------------------
@@ -81,9 +81,11 @@ keeping gameplay logic classic, simple, and fast.
 -   **HTML/CSS** for UI overlays
 -   **Vanilla JavaScript** for game logic
 
+
 ------------------------------------------------------------------------
 
-## 📝 License
+## 📜 License
 
-You may freely modify, share, and use this project in any personal or
-educational context.
+MIT License
+
+------------------------------------------------------------------------
