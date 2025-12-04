@@ -1,115 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
-    background-color: #222;
-    font-family: 'Arial Black', Arial, sans-serif;
+    padding: 0;
+    height: 100vh;
+    background-color: #111; /* Dark background behind the game cluster */
+    font-family: 'Russo One', sans-serif;
     color: white;
     user-select: none;
     -webkit-user-select: none;
     overflow: hidden;
+    display: flex;
+    justify-content: center; /* Centers the trio in the screen */
+    align-items: center;
 }
 
-.container {
-    text-align: center;
-    position: relative;
-    width: 288px;
-    height: 512px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+.main-wrapper {
+    display: flex;
+    height: 100vh; /* Full HD height */
+    width: auto;
+    justify-content: center;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
 }
 
-/* The container for Three.js Canvas */
-#gameContainer {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(#4EC0CA, #89d6dd); /* Sky gradient */
-    display: block;
-    border: 2px solid #444;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-/* UI Overlays (z-index higher than canvas) */
-.ui-layer {
-    position: relative;
+/* --- LEFT SIDE: CONTROLS --- */
+.controls-area {
+    width: 180px; /* Narrower sidebar */
+    background-color: #2c3e50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 2px solid #1a1a1a;
     z-index: 10;
-    pointer-events: none; /* Let clicks pass through to canvas */
 }
 
-/* Re-enable pointer events for buttons */
-#onscreenControls {
-    pointer-events: auto; 
-}
-
-#scoreDisplay {
-    font-size: 40px;
+.controls-area h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #f1c40f;
     text-shadow: 2px 2px 0 #000;
-    margin-top: 20px;
-    position: absolute;
-    width: 100%;
-    top: 10px;
 }
 
-#pipeGapDisplay, #instructions {
-    font-size: 12px;
-    color: #fff;
-    text-shadow: 1px 1px 0 #000;
-    margin-top: 5px;
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 85%;
 }
 
-#instructions {
-    position: absolute;
-    bottom: 80px;
-    width: 100%;
-    text-align: center;
-    line-height: 1.5;
+.game-btn {
+    padding: 12px;
+    font-family: 'Russo One', sans-serif;
+    font-size: 13px;
+    color: white;
+    background-color: #34495e;
+    border: 2px solid #7f8c8d;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.1s;
+    box-shadow: 0 4px 0 #1a252f;
 }
 
+.game-btn:hover { background-color: #46607a; }
+.game-btn:active { transform: translateY(4px); box-shadow: 0 0 0 #1a252f; }
+
+.big-btn {
+    background-color: #e67e22;
+    border-color: #d35400;
+    font-size: 18px;
+    padding: 20px 10px;
+    box-shadow: 0 5px 0 #a04000;
+}
+.big-btn:active { box-shadow: 0 0 0 #a04000; }
+
+/* --- CENTER: GAME AREA (NARROW) --- */
+.game-area {
+    width: 480px; /* Fixed HD Mobile Width */
+    position: relative;
+    background: linear-gradient(#4EC0CA, #89d6dd);
+    overflow: hidden;
+    border-left: 4px solid #000;
+    border-right: 4px solid #000;
+}
+
+/* Three.js canvas */
+.game-area canvas {
+    display: block;
+    outline: none;
+}
+
+/* Overlays */
 .message-overlay {
     position: absolute;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgba(0, 0, 0, 0.9);
     padding: 20px;
-    border-radius: 12px;
-    border: 2px solid #fff;
-    font-size: 20px;
+    border-radius: 10px;
+    border: 3px solid #f1c40f;
+    font-size: 22px;
     text-align: center;
     z-index: 20;
     pointer-events: auto;
-    width: 80%;
+    width: 70%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-#onscreenControls {
-    position: absolute;
-    bottom: -60px; /* Below the game container */
-    left: 50%;
-    transform: translateX(-50%);
+/* --- RIGHT SIDE: INFO --- */
+.info-area {
+    width: 200px;
+    background-color: #2c3e50;
+    border-left: 2px solid #1a1a1a;
     display: flex;
-    gap: 10px;
-    width: 300px;
-    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 10;
 }
 
-#onscreenControls button {
-    padding: 10px 10px;
-    font-size: 12px;
-    color: white;
-    background-color: #555;
-    border: 1px solid #777;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    flex: 1;
+.score-box {
+    background-color: #34495e;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 30px;
+    border: 2px solid #566573;
 }
 
-#onscreenControls button:hover { background-color: #777; }
-#onscreenControls button:active { background-color: #333; transform: translateY(2px); }
+#scoreDisplay {
+    font-size: 50px;
+    color: #fff;
+    text-shadow: 3px 3px 0 #000;
+    line-height: 1;
+    margin-top: 5px;
+}
 
-/* Specific text styles */
-.highlight { color: #f4e04d; }
+.stats-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.stat-item {
+    border-bottom: 1px solid #566573;
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.label {
+    font-size: 11px;
+    color: #bdc3c7;
+    letter-spacing: 1px;
+}
+
+.value {
+    font-size: 16px;
+    color: #f1c40f;
+}
+
+.highlight {
+    color: #e74c3c;
+    font-size: 13px;
+    text-align: center;
+    margin-top: 20px;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+/* Mobile responsive fallback */
+@media (max-width: 860px) {
+    body { flex-direction: column; }
+    .main-wrapper { flex-direction: column; width: 100%; height: 100vh; justify-content: flex-start;}
+    .game-area { width: 100%; flex: 1; border: none; }
+    .controls-area { width: 100%; height: 70px; flex-direction: row; order: 2; }
+    .info-area { position: absolute; top: 0; right: 0; width: auto; background: none; border: none; padding: 10px; pointer-events: none;}
+    .stats-box { display: none; }
+    .score-box { background: none; border: none; padding: 0; margin: 0;}
+    #scoreDisplay { font-size: 40px; }
+}
