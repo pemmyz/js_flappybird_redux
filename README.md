@@ -11,6 +11,8 @@ keeping gameplay logic classic, simple, and fast.
 
 ------------------------------------------------------------------------
 
+![screenshot](screenshots/game_1.png)
+
 ## 🎮 Features
 
 ### ⭐ 2.5D Rendering (Three.js)
