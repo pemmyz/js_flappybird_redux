@@ -9,6 +9,9 @@ optional AI "Autobot."
 This project renders the world in WebGL using **Three.js (r128)** while
 keeping gameplay logic classic, simple, and fast.
 
+
+## Play it now: https://pemmyz.github.io/js_flappybird_redux/
+
 ------------------------------------------------------------------------
 
 ![screenshot](screenshots/game_1.png)
