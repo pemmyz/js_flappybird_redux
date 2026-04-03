@@ -4,50 +4,69 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-color: #111; /* Dark background behind the game cluster */
+    background-color: #111;
     font-family: 'Russo One', sans-serif;
     color: white;
     user-select: none;
     -webkit-user-select: none;
     overflow: hidden;
     display: flex;
-    justify-content: center; /* Centers the trio in the screen */
+    justify-content: center;
     align-items: center;
+    /* Prevent pull-to-refresh and system gestures */
+    touch-action: none;
+}
+
+/* Fullscreen Button */
+.fs-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 100;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: 1px solid #555;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: 'Russo One', sans-serif;
+    font-size: 10px;
+    cursor: pointer;
 }
 
 .main-wrapper {
     display: flex;
-    height: 100vh; /* Full HD height */
+    height: 100vh;
     width: auto;
     justify-content: center;
     box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    background: #111;
 }
 
-/* --- LEFT SIDE: CONTROLS --- */
-.controls-area {
-    width: 180px; /* Narrower sidebar */
+/* --- SIDEBARS --- */
+.controls-area, .info-area {
+    width: 180px;
     background-color: #2c3e50;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-right: 2px solid #1a1a1a;
     z-index: 10;
 }
 
-.controls-area h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
-    color: #f1c40f;
-    text-shadow: 2px 2px 0 #000;
+.controls-area {
+    align-items: center;
+    justify-content: center;
+    border-right: 2px solid #1a1a1a;
 }
 
-.btn-group {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 85%;
+.info-area {
+    width: 200px;
+    border-left: 2px solid #1a1a1a;
+    padding: 20px;
+    box-sizing: border-box;
 }
+
+.controls-area h2 { font-size: 20px; margin-bottom: 20px; color: #f1c40f; text-shadow: 2px 2px 0 #000; }
+
+.btn-group { display: flex; flex-direction: column; gap: 15px; width: 85%; }
 
 .game-btn {
     padding: 12px;
@@ -58,39 +77,26 @@ body {
     border: 2px solid #7f8c8d;
     border-radius: 6px;
     cursor: pointer;
-    transition: transform 0.1s;
     box-shadow: 0 4px 0 #1a252f;
+    touch-action: manipulation;
 }
 
-.game-btn:hover { background-color: #46607a; }
-.game-btn:active { transform: translateY(4px); box-shadow: 0 0 0 #1a252f; }
+.big-btn { background-color: #e67e22; border-color: #d35400; font-size: 18px; padding: 20px 10px; box-shadow: 0 5px 0 #a04000; }
+.game-btn:active { transform: translateY(4px); box-shadow: 0 0 0 #000; }
 
-.big-btn {
-    background-color: #e67e22;
-    border-color: #d35400;
-    font-size: 18px;
-    padding: 20px 10px;
-    box-shadow: 0 5px 0 #a04000;
-}
-.big-btn:active { box-shadow: 0 0 0 #a04000; }
-
-/* --- CENTER: GAME AREA (NARROW) --- */
+/* --- GAME AREA --- */
 .game-area {
-    width: 480px; /* Fixed HD Mobile Width */
+    width: 480px;
     position: relative;
     background: linear-gradient(#4EC0CA, #89d6dd);
     overflow: hidden;
     border-left: 4px solid #000;
     border-right: 4px solid #000;
+    touch-action: none;
 }
 
-/* Three.js canvas */
-.game-area canvas {
-    display: block;
-    outline: none;
-}
+.game-area canvas { display: block; outline: none; }
 
-/* Overlays */
 .message-overlay {
     position: absolute;
     top: 40%;
@@ -103,87 +109,31 @@ body {
     font-size: 22px;
     text-align: center;
     z-index: 20;
-    pointer-events: auto;
+    pointer-events: none;
     width: 70%;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-/* --- RIGHT SIDE: INFO --- */
-.info-area {
-    width: 200px;
-    background-color: #2c3e50;
-    border-left: 2px solid #1a1a1a;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    box-sizing: border-box;
-    z-index: 10;
-}
+.score-box { background-color: #34495e; border-radius: 8px; padding: 15px; text-align: center; margin-bottom: 30px; border: 2px solid #566573; }
+#scoreDisplay { font-size: 50px; color: #fff; text-shadow: 3px 3px 0 #000; margin-top: 5px; }
 
-.score-box {
-    background-color: #34495e;
-    border-radius: 8px;
-    padding: 15px;
-    text-align: center;
-    margin-bottom: 30px;
-    border: 2px solid #566573;
-}
+.stats-box { display: flex; flex-direction: column; gap: 15px; }
+.stat-item { border-bottom: 1px solid #566573; padding-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+.label { font-size: 11px; color: #bdc3c7; }
+.value { font-size: 16px; color: #f1c40f; }
 
-#scoreDisplay {
-    font-size: 50px;
-    color: #fff;
-    text-shadow: 3px 3px 0 #000;
-    line-height: 1;
-    margin-top: 5px;
-}
+.highlight { color: #e74c3c; font-size: 13px; text-align: center; margin-top: 20px; animation: pulse 1s infinite; }
 
-.stats-box {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.stat-item {
-    border-bottom: 1px solid #566573;
-    padding-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.label {
-    font-size: 11px;
-    color: #bdc3c7;
-    letter-spacing: 1px;
-}
-
-.value {
-    font-size: 16px;
-    color: #f1c40f;
-}
-
-.highlight {
-    color: #e74c3c;
-    font-size: 13px;
-    text-align: center;
-    margin-top: 20px;
-    animation: pulse 1s infinite;
-}
-
-@keyframes pulse {
-    0% { opacity: 0.5; }
-    50% { opacity: 1; }
-    100% { opacity: 0.5; }
-}
+@keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
 /* Mobile responsive fallback */
 @media (max-width: 860px) {
     body { flex-direction: column; }
-    .main-wrapper { flex-direction: column; width: 100%; height: 100vh; justify-content: flex-start;}
+    .main-wrapper { flex-direction: column; width: 100%; height: 100vh; }
     .game-area { width: 100%; flex: 1; border: none; }
-    .controls-area { width: 100%; height: 70px; flex-direction: row; order: 2; }
-    .info-area { position: absolute; top: 0; right: 0; width: auto; background: none; border: none; padding: 10px; pointer-events: none;}
-    .stats-box { display: none; }
-    .score-box { background: none; border: none; padding: 0; margin: 0;}
+    .controls-area { width: 100%; height: 80px; flex-direction: row; order: 2; border-right: none; border-top: 2px solid #1a1a1a; }
+    .info-area { position: absolute; top: 10px; right: 10px; width: auto; background: none; border: none; padding: 0; pointer-events: none; }
+    .stats-box, .controls-area h2 { display: none; }
+    .score-box { background: none; border: none; }
     #scoreDisplay { font-size: 40px; }
+    .fs-btn { font-size: 12px; padding: 10px; }
 }

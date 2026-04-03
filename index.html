@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Flappy Bird 2.5D - HD Narrow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Flappy Bird 2.5D - Fixed 60FPS</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Fullscreen Toggle -->
+    <button id="fullscreenBtn" class="fs-btn">⛶ FULLSCREEN</button>
 
-    <div class="main-wrapper">
+    <div class="main-wrapper" id="mainWrapper">
         <!-- LEFT: Controls -->
         <div class="controls-area">
             <h2>CONTROLS</h2>
@@ -20,9 +22,8 @@
             </div>
         </div>
 
-        <!-- CENTER: Game Canvas (Narrow) -->
+        <!-- CENTER: Game Canvas -->
         <div class="game-area" id="gameContainer">
-            <!-- Overlays -->
             <div id="startMessage" class="message-overlay">
                 <strong>FLAPPY 2.5D</strong><br><br>
                 Press SPACE, UP<br>or Click to Start
