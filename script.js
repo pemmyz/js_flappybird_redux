@@ -132,17 +132,50 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastTime = performance.now();
     const fpsInterval = 1000 / 60; // Locked to 60 updates per second
 
-    // --- FULLSCREEN LOGIC ---
-    fsBtn.addEventListener('click', () => {
-        const doc = document.documentElement;
-        if (!document.fullscreenElement) {
-            if (doc.requestFullscreen) doc.requestFullscreen();
-            else if (doc.webkitRequestFullscreen) doc.webkitRequestFullscreen();
+    // --- FULLSCREEN LOGIC (WITH iOS FALLBACK) ---
+    let isFakeFullscreen = false;
+
+    function updateFullscreenState() {
+        const isFS = document.fullscreenElement || document.webkitFullscreenElement || isFakeFullscreen;
+        if (isFS) {
+            document.body.classList.add('is-fullscreen');
             fsBtn.innerText = "EXIT FULLSCREEN";
         } else {
-            if (document.exitFullscreen) document.exitFullscreen();
+            document.body.classList.remove('is-fullscreen');
             fsBtn.innerText = "⛶ FULLSCREEN";
         }
+    }
+
+    // Standard event listeners for Android/Desktop
+    document.addEventListener('fullscreenchange', () => { isFakeFullscreen = false; updateFullscreenState(); });
+    document.addEventListener('webkitfullscreenchange', () => { isFakeFullscreen = false; updateFullscreenState(); });
+
+    fsBtn.addEventListener('click', () => {
+        const doc = document.documentElement;
+        const isFS = document.fullscreenElement || document.webkitFullscreenElement || isFakeFullscreen;
+
+        if (!isFS) {
+            // Enter Fullscreen
+            if (doc.requestFullscreen) {
+                doc.requestFullscreen();
+            } else if (doc.webkitRequestFullscreen) {
+                doc.webkitRequestFullscreen();
+            } else {
+                // Fallback for iOS (Safari doesn't support the Fullscreen API on iPhones)
+                isFakeFullscreen = true;
+            }
+        } else {
+            // Exit Fullscreen
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else {
+                isFakeFullscreen = false;
+            }
+        }
+        updateFullscreenState();
+        setTimeout(handleResize, 100); // Recalculate aspect ratio cleanly
     });
 
     // --- RESIZE HANDLING ---

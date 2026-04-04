@@ -137,3 +137,25 @@ body {
     #scoreDisplay { font-size: 40px; }
     .fs-btn { font-size: 12px; padding: 10px; }
 }
+
+/* --- NEW: Hide Flap/Pause buttons in Mobile Vertical Fullscreen --- */
+@media (max-width: 860px) and (orientation: portrait) {
+    /* Target native fullscreen state OR our JS fallback class */
+    :fullscreen #flapBtn,
+    :fullscreen #pauseBtn,
+    :-webkit-full-screen #flapBtn,
+    :-webkit-full-screen #pauseBtn,
+    body.is-fullscreen #flapBtn,
+    body.is-fullscreen #pauseBtn {
+        display: none !important;
+    }
+
+    /* Centers the remaining 'MODE' button beautifully when flap/pause are hidden */
+    :fullscreen .btn-group,
+    :-webkit-full-screen .btn-group,
+    body.is-fullscreen .btn-group {
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+    }
+}
